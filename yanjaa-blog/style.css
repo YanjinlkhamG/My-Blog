@@ -1,0 +1,308 @@
+/* =============================================
+   YANJAA GANZORIG — BLOG
+   Inspired by Dario Amodei's minimal aesthetic
+   ============================================= */
+
+:root {
+  --bg:           #f9f7f4;
+  --bg-subtle:    #f2efe9;
+  --text:         #1a1916;
+  --text-muted:   #7a7670;
+  --accent:       #2d5a27;
+  --accent-hover: #1e3d1b;
+  --border:       #e0dbd3;
+  --link:         #2d5a27;
+  --max-width:    680px;
+  --font-serif:   'Lora', Georgia, serif;
+  --font-sans:    'Source Sans 3', system-ui, sans-serif;
+}
+
+[data-theme="dark"] {
+  --bg:           #141210;
+  --bg-subtle:    #1c1a17;
+  --text:         #e8e4dc;
+  --text-muted:   #7a7670;
+  --accent:       #7db874;
+  --accent-hover: #9dcf94;
+  --border:       #2a2722;
+  --link:         #7db874;
+}
+
+/* ---- Reset ---- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  line-height: 1.7;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* ---- Layout ---- */
+.site-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 4rem 1.5rem 6rem;
+  width: 100%;
+  animation: fadeUp 0.4s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Header ---- */
+.site-header {
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background-color: var(--bg);
+  z-index: 10;
+  transition: background-color 0.2s ease;
+}
+
+.header-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1.1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.site-name {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  flex: 1;
+}
+
+.site-name:hover { color: var(--accent); }
+
+nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  transition: color 0.15s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--text);
+}
+
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  transition: border-color 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  border-color: var(--text-muted);
+  color: var(--text);
+}
+
+/* ---- Home: intro ---- */
+.intro {
+  margin-bottom: 3.5rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.intro p {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ---- Post list ---- */
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.post-item {
+  padding: 1.8rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.post-item:last-child {
+  border-bottom: none;
+}
+
+.post-date {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+  font-family: var(--font-sans);
+}
+
+.post-title {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+  transition: color 0.15s;
+}
+
+.post-title:hover {
+  color: var(--link);
+}
+
+.post-summary {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  max-width: 560px;
+}
+
+/* ---- Prose pages (About, Post) ---- */
+.prose-page {
+  max-width: 100%;
+}
+
+.page-title {
+  font-family: var(--font-serif);
+  font-size: 1.7rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.post-header {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.post-meta {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+.post-heading {
+  font-family: var(--font-serif);
+  font-size: 1.9rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--text);
+}
+
+/* ---- Prose body ---- */
+.prose-page p {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.85;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+}
+
+.prose-page p em {
+  color: var(--text);
+}
+
+.prose-page a {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.15s;
+}
+
+.prose-page a:hover {
+  color: var(--accent-hover);
+}
+
+/* ---- Post footer ---- */
+.post-footer-nav {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.back-link {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.15s;
+}
+
+.back-link:hover {
+  color: var(--text);
+}
+
+/* ---- Footer ---- */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.site-footer p {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 600px) {
+  html { font-size: 16px; }
+
+  .header-inner { gap: 1rem; }
+
+  .post-heading { font-size: 1.5rem; }
+
+  .main-content { padding: 2.5rem 1.2rem 4rem; }
+}

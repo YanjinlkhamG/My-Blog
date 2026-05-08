@@ -15,16 +15,27 @@ export default async function handler(req, res) {
     },
     body: JSON.stringify({
       model: 'claude-haiku-4-5-20251001',
-      max_tokens: 120,
-      system: 'You write single, original horoscope quotes. Each quote is one sentence — poetic, grounded, and specific to the sign. No clichés. No hashtags. No preamble. Return only the quote, nothing else.',
-      messages: [{ role: 'user', content: `Write a horoscope quote for ${sign} for ${today}.` }],
+      max_tokens: 300,
+      tools: [{ type: 'web_search_20250305', name: 'web_search' }],
+      system: `You find real quotes from real authors, philosophers, poets, or public figures that match the themes of a given zodiac sign. 
+Search the web for a fitting quote. Then respond with ONLY a JSON object in this exact format, nothing else:
+{"quote": "the quote text here", "author": "Full Name"}`,
+      messages: [{ role: 'user', content: `Find a real quote from a known author or figure that fits the themes of ${sign} for ${today}. Return only the JSON.` }],
     }),
   });
 
   const data = await response.json();
   if (!response.ok) return res.status(500).json({ error: data });
-  const quote = data.content?.[0]?.text?.trim();
-  if (!quote) return res.status(500).json({ error: 'No quote returned', data });
 
-  res.status(200).json({ quote });
+  const textBlock = data.content?.find(b => b.type === 'text');
+  const raw = textBlock?.text?.trim();
+  if (!raw) return res.status(500).json({ error: 'No response', data });
+
+  try {
+    const clean = raw.replace(/```json|```/g, '').trim();
+    const parsed = JSON.parse(clean);
+    res.status(200).json({ quote: parsed.quote, author: parsed.author });
+  } catch {
+    res.status(500).json({ error: 'Parse failed', raw });
+  }
 }

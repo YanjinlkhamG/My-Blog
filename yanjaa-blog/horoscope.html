@@ -257,7 +257,7 @@
         body: JSON.stringify({ sign }),
       });
       const data = await response.json();
-      return data.quote || null;
+      return data;
   }
 
     function render() {
@@ -287,7 +287,8 @@
         // Check cache
         const cached = getCached(val);
         if (cached) {
-          showQuote(output, sign, cached, true);
+          const c = JSON.parse(cached);
+          showQuote(output, sign, c.quote, c.author, true);
           return;
         }
 
@@ -295,10 +296,10 @@
         output.innerHTML = `<p class="loading-text">Reading the stars…</p>`;
 
         try {
-          const quote = await fetchQuote(sign);
-          if (!quote) throw new Error('empty');
-          setCache(val, quote);
-          showQuote(output, sign, quote, false);
+          const result = await fetchQuote(sign);
+          if (!result?.quote) throw new Error('empty');
+          setCache(val, JSON.stringify(result));
+          showQuote(output, sign, result.quote, result.author, false);
         } catch (e) {
           output.innerHTML = `<p class="error-text">Something went quiet. Try again in a moment.</p>`;
           btn.disabled = false;
@@ -306,12 +307,13 @@
       });
     }
 
-    function showQuote(output, sign, quote, fromCache) {
+    function showQuote(output, sign, quote, author, fromCache) {
       const today = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
       output.innerHTML = `
         <div class="quote-card">
           <p class="quote-sign">${sign} · ${today}</p>
           <p class="quote-text">"${quote}"</p>
+          <p class="quote-date">— ${author}</p>
           ${fromCache ? `<p class="quote-date">You've already received today's quote.</p>` : ''}
         </div>
       `;

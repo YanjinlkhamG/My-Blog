@@ -1,8 +1,8 @@
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
-  const { sign, date } = req.body;
-  if (!sign || !date) return res.status(400).json({ error: 'Missing sign or date' });
+  const { sign } = req.body;
+  if (!sign) return res.status(400).json({ error: 'Missing sign' });
 
   const today = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 

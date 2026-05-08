@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Horoscope — Yanjaa Ganzorig</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    .horoscope-section {
+      max-width: 100%;
+    }
+
+    .horoscope-intro {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 3rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sign-label {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      font-family: var(--font-sans);
+    }
+
+    .sign-display {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 2rem;
+    }
+
+    .birthdate-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-family: var(--font-sans);
+    }
+
+    .form-input {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      padding: 0.65rem 0.9rem;
+      border-radius: 4px;
+      width: 100%;
+      max-width: 260px;
+      transition: border-color 0.15s;
+      appearance: none;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .submit-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      padding: 0.6rem 1.4rem;
+      cursor: pointer;
+      border-radius: 4px;
+      width: fit-content;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .submit-btn:hover:not(:disabled) {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .quote-card {
+      padding: 2rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-top: 2rem;
+      animation: fadeUp 0.4s ease both;
+    }
+
+    .quote-sign {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-family: var(--font-sans);
+      margin-bottom: 1rem;
+    }
+
+    .quote-text {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-style: italic;
+      line-height: 1.75;
+      color: var(--text);
+    }
+
+    .quote-date {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-family: var(--font-sans);
+      margin-top: 1.2rem;
+    }
+
+    .loading-text {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-top: 1.5rem;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    .error-text {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-family: var(--font-sans);
+      margin-top: 1rem;
+      font-style: italic;
+    }
+
+    .already-read {
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--border);
+      margin-top: 0.5rem;
+    }
+
+    .already-read p {
+      font-family: var(--font-serif);
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="site-wrapper">
+    <header class="site-header">
+      <div class="header-inner">
+        <a href="index.html" class="site-name">Yanjaa Ganzorig</a>
+        <nav>
+          <a href="index.html" class="nav-link">Writing</a>
+          <a href="about.html" class="nav-link">About</a>
+          <a href="horoscope.html" class="nav-link active">Horoscope</a>
+        </nav>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <span class="theme-icon">◐</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <article class="horoscope-section">
+        <p class="horoscope-intro">One quote. One day. Drawn from the stars — and a language model.</p>
+
+        <div id="app">
+          <!-- JS renders here -->
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2025 Yanjaa Ganzorig</p>
+    </footer>
+  </div>
+
+  <script src="theme.js"></script>
+  <script>
+    const SIGNS = [
+      { name: 'Aries',       start: [3,21], end: [4,19] },
+      { name: 'Taurus',      start: [4,20], end: [5,20] },
+      { name: 'Gemini',      start: [5,21], end: [6,20] },
+      { name: 'Cancer',      start: [6,21], end: [7,22] },
+      { name: 'Leo',         start: [7,23], end: [8,22] },
+      { name: 'Virgo',       start: [8,23], end: [9,22] },
+      { name: 'Libra',       start: [9,23], end: [10,22] },
+      { name: 'Scorpio',     start: [10,23], end: [11,21] },
+      { name: 'Sagittarius', start: [11,22], end: [12,21] },
+      { name: 'Capricorn',   start: [12,22], end: [1,19] },
+      { name: 'Aquarius',    start: [1,20], end: [2,18] },
+      { name: 'Pisces',      start: [2,19], end: [3,20] },
+    ];
+
+    function getSign(month, day) {
+      for (const s of SIGNS) {
+        const [sm, sd] = s.start;
+        const [em, ed] = s.end;
+        if (sm <= em) {
+          if ((month === sm && day >= sd) || (month === em && day <= ed) || (month > sm && month < em)) return s.name;
+        } else {
+          if ((month === sm && day >= sd) || (month === em && day <= ed) || month > sm || month < em) return s.name;
+        }
+      }
+      return 'Capricorn';
+    }
+
+    function todayKey() {
+      return new Date().toISOString().slice(0, 10);
+    }
+
+    function storageKey(birthdate) {
+      return `horoscope_${birthdate}_${todayKey()}`;
+    }
+
+    function getCached(birthdate) {
+      try { return localStorage.getItem(storageKey(birthdate)); } catch { return null; }
+    }
+
+    function setCache(birthdate, quote) {
+      try { localStorage.setItem(storageKey(birthdate), quote); } catch {}
+    }
+
+    async function fetchQuote(sign) {
+      const response = await fetch('/api/horoscope', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sign }),
+      });
+      const data = await response.json();
+      return data.quote || null;
+  }
+
+    function render() {
+      const app = document.getElementById('app');
+
+      app.innerHTML = `
+        <div class="birthdate-form">
+          <div class="form-group">
+            <label class="form-label" for="birthdate">Your birth date</label>
+            <input class="form-input" type="date" id="birthdate" max="${new Date().toISOString().slice(0,10)}" />
+          </div>
+          <button class="submit-btn" id="submitBtn">Read today's quote</button>
+        </div>
+        <div id="output"></div>
+      `;
+
+      document.getElementById('submitBtn').addEventListener('click', async () => {
+        const input = document.getElementById('birthdate');
+        const val = input.value;
+        if (!val) return;
+
+        const [year, month, day] = val.split('-').map(Number);
+        const sign = getSign(month, day);
+        const output = document.getElementById('output');
+        const btn = document.getElementById('submitBtn');
+
+        // Check cache
+        const cached = getCached(val);
+        if (cached) {
+          showQuote(output, sign, cached, true);
+          return;
+        }
+
+        btn.disabled = true;
+        output.innerHTML = `<p class="loading-text">Reading the stars…</p>`;
+
+        try {
+          const quote = await fetchQuote(sign);
+          if (!quote) throw new Error('empty');
+          setCache(val, quote);
+          showQuote(output, sign, quote, false);
+        } catch (e) {
+          output.innerHTML = `<p class="error-text">Something went quiet. Try again in a moment.</p>`;
+          btn.disabled = false;
+        }
+      });
+    }
+
+    function showQuote(output, sign, quote, fromCache) {
+      const today = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+      output.innerHTML = `
+        <div class="quote-card">
+          <p class="quote-sign">${sign} · ${today}</p>
+          <p class="quote-text">"${quote}"</p>
+          ${fromCache ? `<p class="quote-date">You've already received today's quote.</p>` : ''}
+        </div>
+      `;
+    }
+
+    render();
+  </script>
+</body>
+</html>

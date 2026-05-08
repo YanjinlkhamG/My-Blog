@@ -22,8 +22,9 @@ export default async function handler(req, res) {
   });
 
   const data = await response.json();
+  if (!response.ok) return res.status(500).json({ error: data });
   const quote = data.content?.[0]?.text?.trim();
-  if (!quote) return res.status(500).json({ error: 'No quote returned' });
+  if (!quote) return res.status(500).json({ error: 'No quote returned', data });
 
   res.status(200).json({ quote });
 }

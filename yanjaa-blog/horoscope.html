@@ -285,12 +285,12 @@
         const btn = document.getElementById('submitBtn');
 
         // Check cache
-        const cached = getCached(val);
-        if (cached) {
-          const c = JSON.parse(cached);
-          showQuote(output, sign, c.quote, c.author, true);
-          return;
-        }
+        // const cached = getCached(val);
+        // if (cached) {
+        //   const c = JSON.parse(cached);
+        //   showQuote(output, sign, c.quote, c.author, true);
+        //   return;
+        // }
 
         btn.disabled = true;
         output.innerHTML = `<p class="loading-text">Reading the stars…</p>`;
@@ -298,7 +298,7 @@
         try {
           const result = await fetchQuote(sign);
           if (!result?.quote) throw new Error('empty');
-          setCache(val, JSON.stringify(result));
+          //setCache(val, JSON.stringify(result));
           showQuote(output, sign, result.quote, result.author, false);
         } catch (e) {
           output.innerHTML = `<p class="error-text">Something went quiet. Try again in a moment.</p>`;

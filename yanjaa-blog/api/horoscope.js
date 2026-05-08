@@ -14,7 +14,7 @@ export default async function handler(req, res) {
       'anthropic-version': '2023-06-01',
     },
     body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-haiku-4-5-20251001',
       max_tokens: 120,
       system: 'You write single, original horoscope quotes. Each quote is one sentence — poetic, grounded, and specific to the sign. No clichés. No hashtags. No preamble. Return only the quote, nothing else.',
       messages: [{ role: 'user', content: `Write a horoscope quote for ${sign} for ${today}.` }],
